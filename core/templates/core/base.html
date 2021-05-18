@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<!--
+	Based on template Striped by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>MIMIR</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'core/css/main.css' %}" />
+		<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+
+		<!-- Sidebar -->
+			<div id="sidebar">
+
+				<!-- Logo -->
+					<h1 id="logo"><a href="/">MÌMIR</a></h1>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li {% if request.path == '/' %}class="current" {% endif %}><a href="/">Index</a></li>
+							<li {% if '/artifacts/' in request.path %}class="current" {% endif %}><a href="{% url 'artifacts' %}">Artifacts</a></li>
+							<li {% if '/corrupted/' in request.path %}class="current" {% endif %}><a href="{% url 'compromise' %}">Compromise</a></li>
+							<li {% if '/actors/' in request.path %}class="current" {% endif %}><a href="{% url 'actors' %}">Threat Actors</a></li>
+						</ul>
+					</nav>
+
+					<nav id="nav">
+						<ul>
+							<li {% if '/endpoints/' in request.path %}class="current" {% endif %}><a href="{% url 'endpoints' %}">Endpoints</a></li>
+							<li {% if '/areas/' in request.path %}class="current" {% endif %}><a href="{% url 'areas' %}">Areas</a></li>							
+							<li {% if '/users/' in request.path %}class="current" {% endif %}><a href="#">[DEV] Users</a></li>
+							<li {% if '/settings/' in request.path %}class="current" {% endif %}><a href="#">[DEV] Settings</a></li>
+						</ul>
+					</nav>
+
+				<!-- Search -->
+					<section class="box search">
+						<form method="post" action="#">
+							<input type="text" class="text" name="search" placeholder="Search" />
+						</form>
+					</section>
+
+				<!-- Text
+					<section class="box text-style1">
+						<div class="inner">
+							<p>
+								<strong>Striped:</strong> A free and fully responsive HTML5 site
+								template designed by <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>
+							</p>
+						</div>
+					</section>
+				-->
+
+
+				<!-- Copyright -->
+					<ul id="copyright">
+						<li>&copy; Arka0m</li><li>Design based on: <a href="http://html5up.net">HTML5UP</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'core/js/jquery.min.js' %}"></script>
+			<script src="{% static 'core/js/browser.min.js' %}"></script>
+			<script src="{% static 'core/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'core/js/util.js' %}"></script>
+			<script src="{% static 'core/js/main.js' %}"></script>
+
+	</body>
+</html>

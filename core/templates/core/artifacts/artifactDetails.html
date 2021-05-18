@@ -1,0 +1,96 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+		<header>
+			<h2>Artifact/{{ artifact.name }}</h2>
+			<br /><p>Artifact Details</p>
+		</header>
+		<section class="box text-style1">
+		<div class="inner">
+			<div class="btn">
+				<form class="form-inline" action="{% url 'compromiseNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" id="artifact" name="artifact" value="{{ artifact }}">
+					<button type="submit" class="btn btn-success">Link to Endpoint</button>
+				</form>
+				<form class="form-inline" action="{% url 'artifactNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="name" value="{{ artifact.name }}">
+					<input type="hidden" name="kind" value="{{ artifact.kind }}">
+					<input type="hidden" name="TTP" value="{{ artifact.TTP }}">
+					<input type="hidden" name="status" value="{{ artifact.status }}">
+					<input type="hidden" name="comment" value="{{ artifact.comment }}">
+					<input type="hidden" name="actor" value="{{ artifact.actor }}">
+					<input type="hidden" name="flag" value="modify">
+					<button type="submit" class="btn btn-success">Modify</button>
+				</form>
+			</div><br />
+			<table class="tab_list">
+				<thead>
+					<tr>
+						<th>Attribut : </th>
+						<th>Value : </th>
+					</tr>
+				</thead>
+				<tr class="main_cell">
+					<th>Name : </th>
+					<th>{{ artifact.name }}</th>
+				</tr>
+				<tr>
+					<th>Type : </th>
+					<td>{{ artifact.kind }}</td>
+				</tr>
+				<tr>
+					<th>TTP : </th>
+					<td>{{ artifact.TTP }}</td>
+				</tr>
+				<tr>
+					<th>Status : </th>
+					<td>{{ artifact.get_status_display }}</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td>{{ artifact.comment}}</td>
+				</tr>
+				{% if artifact.actor.name != '' %}
+					<tr class="table_line_clk" onclick="document.location.href='{% url 'actorDetails' actorName=artifact.actor %}'">
+				{% else %}
+					<tr>
+				{% endif %}
+					<th>Theat actor: </th>
+					<td>{{ artifact.actor }}</td>
+				</tr>
+			</table>
+			<form class="form-inline" action="{% url 'artifacts' %}" method="post">
+				{%csrf_token %}
+				<input type="hidden" class="hidden" value="{{ artifact.name }}" name="delete">
+				<button type="submit" class="btn_del">Delete</button>
+  			</form>
+		</div>
+	</section>
+	<section class="box text-style1">
+        <div class="inner">
+			{% if endpoints %}
+			<h3 class="table_title">List of linked endpoints</h3>
+			<table>
+			<thead>
+				<tr>
+					<th>Name : </th>
+				</tr>
+			</thead>
+			{% for endpoint in endpoints %}
+				<tr class="table_line_clk" onclick="document.location.href='{% url 'endpointDetails' endpointName=endpoint.endpoint_id %}'">
+					<td class="table_cell_main">{{ endpoint.endpoint_id }}</td>
+				</tr>
+			{% endfor %}
+			</table>
+			{% else %}
+			<h3 class="table_title">No endpoints linked</h3>
+			{% endif %}
+		</div>
+	</section>
+	</article>
+	
+{% endblock %}

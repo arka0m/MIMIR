@@ -1,0 +1,31 @@
+<section class="box text-style1">
+	<div class="inner">
+		<table class="tab_list">
+			<thead>
+				<tr>
+					<th>Name : </th>
+					<th>Type : </th>
+					<th>Status : </th>
+					<th>Actor : </th>
+				</tr>
+			</thead>
+			{% for artifact in artifacts %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'artifactDetails' artifactName=artifact.name %}'">
+				<td class="table_cell_main">{{ artifact.name }}</td>
+				<td>{{ artifact.get_kind_display }}</td>
+				<td>{{ artifact.get_status_display }}</td>
+				<td>{{ artifact.actor }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="table_msg-pager">
+			<p>Click on a row in the table to access details of an item.<p>
+			{% if artifacts.has_previous %}
+			<button class="pager"><a href="?page={{ artifacts.previous_page_number }}">Previous</a></button>
+			{% endif %}
+			{% if artifacts.has_next %}
+			<button class="pager"><a href="?page={{ artifacts.next_page_number }}">Next</a></button>
+			{% endif %}
+		</div>
+	</div>
+</section>

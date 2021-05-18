@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+		<header>
+			<h2>Threat Actor/{{ actor.name }}</h2><br />
+			<p>Threat Actor details</p>
+		</header>
+		<section class="box text-style1">
+        <div class="inner">
+			<div class="btn">
+				<form class="form-inline" action="{% url 'actorNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="name" value="{{ actor.name }}">
+					<input type="hidden" name="kind" value="{{ actor.kind }}">
+					<input type="hidden" name="aim" value="{{ actor.aim }}">
+					<input type="hidden" name="TTPs" value="{{ actor.TTPs }}">
+					<input type="hidden" name="comment" value="{{ actor.comment }}">
+					<input type="hidden" name="flag" value="modify">
+					<button type="submit" class="btn btn-success">Modify</button>
+				</form>
+			</div><br />
+			<table class="tab_list">
+				<thead>
+					<tr>
+						<th>Attribut : </th>
+						<th>Value : </th>
+					</tr>
+				</thead>
+				<tr class="main_cell">
+					<th>Name : </th>
+					<td>{{ actor.name }}</td>
+				</tr>
+				<tr>
+					<th>Type : </th>
+					<td>{{ actor.get_kind_display }}</td>
+				</tr>
+				<tr>
+					<th>Aim: </th>
+					<td>{{ actor.aim }}</td>
+				</tr>
+				<tr>
+					<th>TTPs : </th>
+					<td>{{ actor.TTPs }}</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td>{{ actor.comment}}</td>
+				</tr>
+			</table>
+			<form class="form-inline" action="{% url 'actors' %}" method="post">
+				{%csrf_token %}
+				<input type="hidden" class="hidden" value="{{ actor.name }}" name="delete">
+				<button type="submit" class="btn_del">Delete</button>
+  			</form>
+		</div>
+	</section>
+	<section class="box text-style1">
+        <div class="inner">
+			{% if artifacts %}
+			<h3 class="table_title">List of related IOC</h3>
+			<table>
+			<thead>
+				<tr>
+					<th>Name : </th>
+					<th>Type : </th>
+				</tr>
+			</thead>
+			{% for artifact in artifacts %}
+				<tr class="table_line_clk" onclick="document.location.href='{% url 'artifactDetails' artifactName=artifact.name %}'">
+					<td class="table_cell_main">{{ artifact.name }}</td>
+					<td>{{ artifact.kind }}</td>
+				</tr>
+			{% endfor %}
+			</table>
+			{% else %}
+			<h3 class="table_title">No related IOC</h3>
+			{% endif %}
+		</div>
+	</section>
+	</article>
+
+{% endblock %}

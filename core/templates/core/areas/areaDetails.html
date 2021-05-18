@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+		<header>
+			<h2>Area/{{ area.name }}</h2><br />
+			<p>Area details</p>
+		</header>
+		<section class="box text-style1">
+		<div class="inner">
+			<div class="btn">
+				<form class="form-inline" action="{% url 'areaNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="name" value="{{ area.name }}">
+					<input type="hidden" name="criticality" value="{{ area.criticality }}">
+					<input type="hidden" name="comment" value="{{ area.comment }}">
+					<input type="hidden" name="flag" value="modify">
+					<button type="submit" class="btn btn-success">Modify</button>
+				</form>
+			</div><br />
+			<table class="tab_list">
+				<thead>
+					<tr>
+						<th>Attribut : </th>
+						<th>Value : </th>
+					</tr>
+				</thead>
+				<tr class="main_cell">
+					<th>Name : </th>
+					<th>{{ area.name }}</th>
+				</tr>
+				<tr>
+					<th>Criticality : </th>
+					<td>{{ area.get_criticality_display }}</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td>{{ area.comment}}</td>
+				</tr>
+			</table>
+			<form class="form-inline" action="{% url 'areas' %}" method="post">
+				{%csrf_token %}
+				<input type="hidden" class="hidden" value="{{ area.name }}" name="delete">
+				<button type="submit" class="btn_del">Delete</button>
+  			</form>
+		</div>
+	    </section>
+	    <section class="box text-style1">
+        <div class="inner">
+			{% if endpoints %}
+			<h3 class="table_title">List of related endpoints</h3>
+			<table>
+			<thead>
+				<tr>
+					<th>Name : </th>
+					<th>Status : </th>
+					<th>Criticality : </th>
+				</tr>
+			</thead>
+			{% for endpoint in endpoints %}
+				<tr class="table_line_clk" onclick="document.location.href='{% url 'endpointDetails' endpointName=endpoint.name %}'">
+					<td class="table_cell_main">{{ endpoint.name }}</td>
+					<td>{{ endpoint.get_status_display }}</td>
+					<td>{{ endpoint.get_criticality_display }}</td>
+				</tr>
+			{% endfor %}
+			</table>
+			{% else %}
+			<h3 class="table_title">No related endpoints</h3>
+			{% endif %}
+		</div>
+	    </section>
+	</article>
+	
+{% endblock %}

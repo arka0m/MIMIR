@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+			<header>
+				<h2>Areas</h2>
+				<br /><p>Areas List</p>
+			</header>
+	</article>
+	<button><a href={% url 'areaNew' %}>Create new</a></button><br />
+	<br /> {% include 'core/areas/areasList.html' %}
+	
+{% endblock %}
