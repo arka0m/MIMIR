@@ -1,2 +1,0 @@
-# MIMIR
-MIMIR project
