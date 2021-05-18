@@ -1,0 +1,103 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+		<header>
+			<h2>Endpoint/{{ endpoint.name }}</h2><br />
+			<p>Endpoint details</p>
+		</header>
+		<section class="box text-style1">
+		<div class="inner">
+			<div class="btn">
+				<form class="form-inline" action="{% url 'compromiseNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="endpoint" value="{{ endpoint }}">
+					<button type="submit" class="btn btn-success">Link to Artifact</button>
+				</form>
+				<form class="form-inline" action="{% url 'endpointNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="name" value="{{ endpoint.name }}">
+					<input type="hidden" name="kind" value="{{ endpoint.kind }}">
+					<input type="hidden" name="function" value="{{ endpoint.function }}">
+					<input type="hidden" name="criticality" value="{{ endpoint.criticality }}">
+					<input type="hidden" name="status" value="{{ endpoint.status }}">
+					<input type="hidden" name="comment" value="{{ endpoint.comment }}">
+					<input type="hidden" name="area" value="{{ endpoint.area }}">
+					<input type="hidden" name="flag" value="modify">
+					<button type="submit" class="btn btn-success">Modify</button>
+				</form>
+			</div><br />
+			<table class="tab_list">
+				<thead>
+					<tr>
+						<th>Attribut : </th>
+						<th>Value : </th>
+					</tr>
+				</thead>
+				<tr class="main_cell">
+					<th>Name : </th>
+					<th>{{ endpoint.name }}</th>
+				</tr>
+				<tr>
+					<th>Type : </th>
+					<td>{{ endpoint.kind }}</td>
+				</tr>
+				<tr>
+					<th>Function : </th>
+					<td>{{ endpoint.function }}</td>
+				</tr>
+				<tr>
+					<th>Criticality : </th>
+					<td>{{ endpoint.get_criticality_display }}</td>
+				</tr>
+				<tr>
+					<th>Status : </th>
+					<td>{{ endpoint.get_status_display }}</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td>{{ endpoint.comment}}</td>
+				</tr>
+				{% if endpoint.area.name != '' %}
+					<tr class="table_line_clk" onclick="document.location.href='{% url 'areaDetails' areaName=endpoint.area %}'">
+				{% else %}
+					<tr>
+				{% endif %}
+					<th>Area : </th>
+					<td>{{ endpoint.area }}</td>
+				</tr>
+			</table>
+			<form class="form-inline" action="{% url 'endpoints' %}" method="post">
+				{%csrf_token %}
+				<input type="hidden" class="hidden" value="{{ endpoint.name }}" name="delete">
+				<button type="submit" class="btn_del">Delete</button>
+  			</form>
+		</div>
+		</section>
+		<section class="box text-style1">
+        <div class="inner">
+			{% if artifacts %}
+			<h3 class="table_title">List of related IOC</h3>
+			<table>
+			<thead>
+				<tr>
+					<th>Name : </th>
+					<!--<th>Type : </th>-->
+				</tr>
+			</thead>
+			{% for artifact in artifacts %}
+				<tr class="table_line_clk" onclick="document.location.href='{% url 'artifactDetails' artifactName=artifact.artifact_id %}'">
+					<td class="table_cell_main">{{ artifact.artifact_id }}</td>
+					<!--<td>{{ artifact.kind }}</td>-->
+				</tr>
+			{% endfor %}
+			</table>
+			{% else %}
+			<h3 class="table_title">No related IOC</h3>
+			{% endif %}
+		</div>
+	</section>
+	</article>
+	
+{% endblock %}

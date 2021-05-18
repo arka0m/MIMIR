@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+			<header>
+				<h2>New compromise</h2>
+				</br><p>Create new connection between an endpoint and an artifact.</p>
+			</header>
+			<form class="form-inline" action="{% url 'compromise' %}" method="post">
+				{%csrf_token %}
+				<div class="form-group">
+    				<label for="{{ form.artifact.id_for_label }}" class="control-label">Artifact</label>
+    				 {{ form.artifact }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.endpoint.id_for_label }}" class="control-label">Endpoint</label>
+    				 {{ form.endpoint }}
+    			</div>
+				<!--
+				<div class="form-group">
+    				<label for="{{ form.dateDetection.id_for_label }}" class="control-label">Date of detection (default = now)</label>
+    				 {{ form.dateDetection }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.dateBegin.id_for_label }}" class="control-label">Date of first occurs (optional)</label>
+    				 {{ form.dateBegin }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.dateEnd.id_for_label }}" class="control-label">Date of last occurs (optional)</label>
+    				 {{ form.dateEnd }}
+    			</div>
+				-->
+				<br />
+  				<!--<button type="submit" class="btn btn-success">{% if request.POST %} Modify {% else %} Create {% endif %}</button>-->
+				<button type="submit" class="btn btn-success">Create link</button>
+  			</form>
+	</article>
+	
+{% endblock %}

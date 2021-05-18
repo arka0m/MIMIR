@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+			<header>
+				<h2>New Actor</h2>
+				</br><p>Create new threat actor</p>
+			</header>
+			<form class="form-inline" action="{% url 'actors' %}" method="post">
+				{%csrf_token %}
+				<div class="form-group {% if form.name.errors %}has-warning has-feedback{% endif %}">
+					<label for="{{ form.name.id_for_label }}" class="control-label">Name</label>
+					{{ form.name }}
+				</div>
+    			<div class="form-group">
+    				<label for="{{ form.kind.id_for_label }}" class="control-label">Type</label>
+    				 {{ form.kind }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.status.id_for_label }}" class="control-label">Aim (optional)</label>
+    				 {{ form.aim }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.function.id_for_label }}" class="control-label">TTPs (optional)</label>
+    				 {{ form.TTPs }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.comment.id_for_label }}" class="control-label">Comment (optional)</label>
+    				 {{ form.comment }}
+    			</div>
+				<div class="table_msg-pager"> Caution : Actor name must be unique. </div>
+  				<button type="submit" class="btn btn-success">{% if request.POST %} Modify {% else %} Create {% endif %}</button>
+  			</form>
+	</article>
+	
+{% endblock %}

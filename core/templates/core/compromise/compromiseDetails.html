@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+		<header>
+			<h2>compromise/ID : {{ corrupted.id }}</h2>
+			<br /><p>Compromise Details</p>
+		</header>
+		<section class="box text-style1">
+		<div class="inner">
+			<!--
+			<div class="btn">
+				<form class="form-inline" action="{% url 'compromiseNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="id" value="{{ corrupted.id}}">
+					<input type="hidden" name="artifact" value="{{ corrupted.artifact_id }}">
+					<input type="hidden" name="endpoint" value="{{ corrupted.endpoint_id }}">
+					<input type="hidden" name="dateDetection" value="{{ corrupted.dateDetection}}">
+					<input type="hidden" name="dateBegin" value="{{ corrupted.dateBegin }}">
+					<input type="hidden" name="dateEnd" value="{{ corrupted.dateEnd }}">
+					<button type="submit" class="btn btn-success">Modify</button>
+				</form>
+			</div>
+			-->
+			<table class="tab_list">
+				<tr>
+					<td><strong>Artifact :</strong> </td>
+					<td><strong>{{ corrupted.artifact_id }}</strong></td>
+				</tr>
+				<tr>
+					<td>Endpoint : </td>
+					<td>{{ corrupted.endpoint_id }}</td>
+				</tr>
+				<tr>
+					<td>Detection : </td>
+					<td>{{ corrupted.dateDetection }}</td>
+				</tr>
+				<tr>
+					<td>First occurrence : </td>
+					<td>{{ corrupted.dateBegin }}</td>
+				</tr>
+				<tr>
+					<td>Last occurrence : </td>
+					<td>{{ corrupted.dateEnd }}</td>
+				</tr>
+			</table>
+			<form class="form-inline" action="{% url 'compromise' %}" method="post">
+				{%csrf_token %}
+				<input type="hidden" class="hidden" value="{{ corrupted.id }}" name="delete">
+				<button type="submit" class="btn_del">Delete</button>
+  			</form>
+		</div>
+	</section>
+	</article>
+	
+{% endblock %}

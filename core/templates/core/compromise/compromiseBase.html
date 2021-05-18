@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+			<header>
+				<h2>Compromise</h2>
+				<br /><p>Compromise list</p>
+			</header>
+	</article>
+	<button><a href={% url 'compromiseNew' %}>Create new</a></button><br />
+	<br /> {% include 'core/compromise/compromiseList.html' %}
+
+{% endblock %}

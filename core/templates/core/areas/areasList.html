@@ -1,0 +1,27 @@
+<section class="box text-style1">
+	<div class="inner">
+		<table class="tab_list">
+			<thead>
+				<tr>
+					<th>Name : </th>
+					<th>Criticality : </th>
+				</tr>
+			</thead>
+			{% for area in areas %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'areaDetails' areaName=area.name %}'">
+				<td class="table_cell_main">{{ area.name }}</td>
+				<td>{{ area.get_criticality_display}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="table_msg-pager">
+			<p>Click on a row in the table to access details of an item.<p>
+			{% if areas.has_previous %}
+			<button class="pager"><a href="?page={{ areas.previous_page_number }}">Previous</a></button>
+			{% endif %}
+			{% if areas.has_next %}
+			<button class="pager"><a href="?page={{ areas.next_page_number }}">Next</a></button>
+			{% endif %}
+		</div>
+	</div>
+</section>

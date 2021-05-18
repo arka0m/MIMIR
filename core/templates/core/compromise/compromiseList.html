@@ -1,0 +1,32 @@
+<section class="box text-style1">
+	<div class="inner">
+		<table class="tab_list">
+			<thead>
+				<tr>
+					<th>artifact : </th>
+					<th>endpoint : </th>
+					<th>Detection : </th>
+					<!--<th>Actor:</th>-->
+				</tr>
+			</thead>
+			{% for corrupted in corrupts %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'compromiseDetails' compromiseId=corrupted.id %}'">
+				<td>{{ corrupted.artifact }}</td>
+				<td>{{ corrupted.endpoint }}</td>
+				<td>{{ corrupted.dateDetection }}</td>
+				<!--<td>{{ corrupted.dateBegin }}</td>
+				<td>{{ corrupted.dateEnd }}</td>-->
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="table_msg-pager">
+			<p>Click on a row in the table to access details of an item.<p>
+			{% if corrupts.has_previous %}
+			<button class="pager"><a href="?page={{ corrupts.previous_page_number }}">Previous</a></button>
+			{% endif %}
+			{% if corrupts.has_next %}
+			<button class="pager"><a href="?page={{ corrupts.next_page_number }}">Next</a></button>
+			{% endif %}
+		</div>
+	</div>
+</section>
