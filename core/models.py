@@ -113,8 +113,8 @@ class User(models.Model):
     ('L', 'Low'),
   )
   account = models.CharField(max_length=64, primary_key=True)
-  name = models.CharField(max_length=64, null=True)
-  surname = models.CharField(max_length=32, null=True)
+  lastName = models.CharField(max_length=64, null=True)
+  firstName = models.CharField(max_length=32, null=True)
   status = models.CharField(max_length=3, choices=USER_STATUS, default='UNK')
   function = models.CharField(max_length=32, null=True)
   criticality = models.CharField(max_length=1, choices=USER_CRITICALITY, default='M')

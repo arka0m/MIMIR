@@ -1,7 +1,7 @@
 from django.forms import ModelForm, TextInput, Select, Textarea, CharField, DateTimeField, DateTimeInput, ModelChoiceField, ModelMultipleChoiceField
 from datetime import datetime
 
-from .models import Artifact, Endpoint, Corrupted, Actor, Area
+from .models import Artifact, Endpoint, Corrupted, Actor, Area, User
 
 class ArtifactForm(ModelForm):
     TTP = CharField(required=False)
@@ -71,4 +71,23 @@ class AreaForm(ModelForm):
             'name': TextInput(attrs={'class': 'form-control'}),
             'criticality': Select(choices=Area.AREA_CRITICALITY),
             'comment': Textarea(attrs={'class': 'form-control'}),
+        }
+
+class UserForm(ModelForm):
+    lastName = CharField(required=False)
+    firstName = CharField(required=False)
+    function = CharField(required=False)
+    comment = CharField(required=False)
+    endpoint = ModelChoiceField(queryset=Endpoint.objects.all(), required=False)
+    class Meta:
+        model = User
+        fields = ["account", "lastName", "firstName", "status", "function", "criticality", "comment", "endpoint"]
+        widgets = {
+            'account': TextInput(attrs={'class': 'form-control'}),
+            'lastName': TextInput(attrs={'class': 'form-control'}),
+            'firstName': TextInput(attrs={'class': 'form-control'}),
+            'status': Select(choices=User.USER_STATUS),
+            'function': TextInput(attrs={'class': 'form-control'}),
+            'criticality': Select(choices=User.USER_CRITICALITY),
+            'comment': Textarea(attrs={'class': 'form-control'})
         }

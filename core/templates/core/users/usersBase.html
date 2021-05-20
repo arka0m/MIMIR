@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+			<header>
+				<h2>Users</h2>
+				<br /><p>Users List</p>
+			</header>
+	</article>
+	<button><a href={% url 'userNew' %}>Create new</a></button><br />
+	<br /> {% include 'core/user/userList.html' %}
+	
+{% endblock %}

@@ -43,7 +43,7 @@
 						<ul>
 							<li {% if '/endpoints/' in request.path %}class="current" {% endif %}><a href="{% url 'endpoints' %}">Endpoints</a></li>
 							<li {% if '/areas/' in request.path %}class="current" {% endif %}><a href="{% url 'areas' %}">Areas</a></li>							
-							<li {% if '/users/' in request.path %}class="current" {% endif %}><a href="#">[DEV] Users</a></li>
+							<li {% if '/users/' in request.path %}class="current" {% endif %}><a href="{% url 'users' %}">[DEV] Tests</a></li>
 							<li {% if '/settings/' in request.path %}class="current" {% endif %}><a href="#">[DEV] Settings</a></li>
 						</ul>
 					</nav>

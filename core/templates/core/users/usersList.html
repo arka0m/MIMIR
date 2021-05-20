@@ -1,0 +1,29 @@
+<section class="box text-style1">
+	<div class="inner">
+		<table class="tab_list">
+			<thead>
+				<tr>
+					<th>Account : </th>
+					<th>Criticality : </th>									
+					<th>Status : </th>
+				</tr>
+			</thead>
+			{% for user in users %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'userDetails' accountName=user.account %}'">
+				<td class="table_cell_main">{{ user.account }}</td>
+				<td>{{ user.get_criticality_display }}</td>
+				<td>{{ user.get_status_display }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="table_msg-pager">
+			<p>Click on a row in the table to access details of an item.<p>
+			{% if users.has_previous %}
+			<button class="pager"><a href="?page={{ users.previous_page_number }}">Previous</a></button>
+			{% endif %}
+			{% if users.has_next %}
+			<button class="pager"><a href="?page={{ users.next_page_number }}">Next</a></button>
+			{% endif %}
+		</div>
+	</div>
+</section>

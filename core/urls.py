@@ -19,5 +19,8 @@ urlpatterns = [
     url(r'^areas/$', views.areas, name='areas'),
     url(r'^areas/details/(?P<areaName>.+)/?$', views.areaDetails, name='areaDetails'),
     url(r'^areas/create/$', views.areaNew, name='areaNew'),
+    url(r'^users/$', views.users, name='users'),
+    url(r'^users/details/(?P<accountName>.+)/?$', views.userDetails, name='userDetails'),
+    url(r'^users/create/$', views.userNew, name='userNew'),
     url(r'^search/$', views.search),
 ]

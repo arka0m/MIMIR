@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+		<header>
+			<h2>User/{{ user.account }}</h2><br />
+			<p>User details</p>
+		</header>
+		<section class="box text-style1">
+		<div class="inner">
+			<div class="btn">
+				<form class="form-inline" action="{% url 'userNew' %}" method="post">
+					{%csrf_token %}
+					<input type="hidden" name="account" value="{{ user.account }}">
+					<input type="hidden" name="lastName" value="{{ user.lastName }}">
+					<input type="hidden" name="firstName" value="{{ user.firstName }}">					
+					<input type="hidden" name="function" value="{{ user.function }}">
+					<input type="hidden" name="criticality" value="{{ user.criticality }}">
+					<input type="hidden" name="status" value="{{ user.status }}">
+					<input type="hidden" name="comment" value="{{ user.comment }}">
+					<input type="hidden" name="endpoint" value="{{ user.endpoint }}">
+					<input type="hidden" name="flag" value="modify">
+					<button type="submit" class="btn btn-success">Modify</button>
+				</form>
+			</div><br />
+			<table class="tab_list">
+				<thead>
+					<tr>
+						<th>Attribut : </th>
+						<th>Value : </th>
+					</tr>
+				</thead>
+				<tr class="main_cell">
+					<th>Account : </th>
+					<th>{{ user.account }}</th>
+				</tr>
+				<tr>
+					<th>Last Name : </th>
+					<td>{{ user.lastName }}</td>
+				</tr>
+				<tr>
+					<th>First Name : </th>
+					<td>{{ user.firstName }}</td>
+				</tr>
+				<tr>
+					<th>Function : </th>
+					<td>{{ user.function }}</td>
+				</tr>
+				<tr>
+					<th>Criticality : </th>
+					<td>{{ user.get_criticality_display }}</td>
+				</tr>
+				<tr>
+					<th>Status : </th>
+					<td>{{ user.get_status_display }}</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td>{{ user.comment}}</td>
+				</tr>
+				{% if user.area.name != '' %}
+					<tr class="table_line_clk" onclick="document.location.href='{% url 'areaDetails' areaName=user.area %}'">
+				{% else %}
+					<tr>
+				{% endif %}
+					<th>Area : </th>
+					<td>{{ user.area }}</td>
+				</tr>
+				{% if user.endpoint.name != '' %}
+					<tr class="table_line_clk" onclick="document.location.href='{% url 'endpointDetails' endpointName=user.endpoint %}'">
+				{% else %}
+					<tr>
+				{% endif %}
+					<th>Endpoint : </th>
+					<td>{{ user.endpoint }}</td>
+				</tr>
+		</div>
+		</section>
+	</article>
+	
+{% endblock %}

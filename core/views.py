@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from .models import Artifact, Endpoint, Corrupted, Actor, Area
-from .forms import ArtifactForm, EndpointForm, CorruptedForm, ActorForm, AreaForm
+from .models import Artifact, Endpoint, Corrupted, Actor, Area, User
+from .forms import ArtifactForm, EndpointForm, CorruptedForm, ActorForm, AreaForm, UserForm
 
 def index(request):
     # Display index
@@ -362,6 +362,100 @@ def areaNew(request):
         'form' : form
     }
     return render(request, 'core/areas/areaNew.html', context)
+
+def users(request):
+    '''Manage display/creation/modification/deletion of users objects'''
+    if request.method == 'POST':
+    # IF method is POST, create/modify/delete an instance of User.
+        if request.POST.get('delete'):
+        # Manage deletion of a user
+            accountName = request.POST.get('delete')
+            user = User.objects.get(pk=accountName)
+            user.delete()
+        else:
+        # Manage creation or modification of a user
+            account = request.POST.get('account')
+            lastName = request.POST.get('lastName')
+            firstName = request.POST.get('firstName')
+            status = request.POST.get('status')
+            function = request.POST.get('function')
+            criticality = request.POST.get('criticality')
+            comment = request.POST.get('comment')
+            #endpoint = request.POST.get('endpoint')
+            user = User.objects.get(pk=actor)
+        
+            user = User.objects.filter(pk=account)
+            if not user.exists():
+                #If user doesn't exist, create a new one.
+                user = user.objects.create(
+                    account = account,
+                    lastName = lastName,
+                    firstName = firstName,
+                    status = status,
+                    criticality = criticality,
+                    comment = comment,
+                    #endpoint = endpoint
+                )
+                user.save()
+            else:
+                #If it exists, modify the attributs.
+                user.update(
+                    account = account,
+                    lastName = lastName,
+                    firstName = firstName,
+                    status = status,
+                    criticality = criticality,
+                    comment = comment,
+                    #endpoint = endpoint
+                )
+    # Make a list of all users
+    # TODO: Add filter features
+
+    users_list = User.objects.all()
+    # Get all the users
+
+    paginator = Paginator(users_list, 20)
+    # Manage pagination and display them per page.
+    page = request.GET.get('page')
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        #If page is not an integer, deliver first page.
+        users = paginator.page(1)
+    except EmptyPage:
+        #If page is out of range, deliver last page.
+        users = paginator.page(paginator.num_pages)
+    # Send to users.html with the rights elements.
+    context = {
+        'users' : users
+        }
+    return render(request, 'core/users/usersBase.html', context)
+
+def userDetails(request, accountName):
+    '''Manage display of user details'''
+    user = get_object_or_404(User, pk=accountName)
+    # Get user object from its name
+    endpoints = Corrupted.objects.filter(user_id=accountName)
+    # Get endpoints linked to a user
+    context = {
+        'user' : user,
+        'endpoints' : endpoints
+        }
+    return render(request, 'core/users/userDetails.html', context)
+
+def userNew(request):
+    '''Manage creation/modification of users'''
+    if request.method == 'POST':
+        # Modification of a user
+        form = userForm(request.POST)
+    else:
+        # Creation of a user
+        form = userForm()
+    context = {
+        'form' : form
+    }
+    # Send to form
+    return render(request, 'core/users/userNew.html', context)
 
 def search(request):
     query = request.GET['query']
