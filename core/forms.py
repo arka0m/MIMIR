@@ -78,7 +78,7 @@ class UserForm(ModelForm):
     firstName = CharField(required=False)
     function = CharField(required=False)
     comment = CharField(required=False)
-    endpoint = ModelChoiceField(queryset=Endpoint.objects.all(), required=False)
+    endpoint = ModelChoiceField(queryset=Endpoint.objects.exclude(name=''), required=False)
     class Meta:
         model = User
         fields = ["account", "lastName", "firstName", "status", "function", "criticality", "comment", "endpoint"]

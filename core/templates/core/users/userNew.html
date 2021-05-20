@@ -4,18 +4,22 @@
 	<!-- Post -->
 	<article class="box post post-excerpt">
 			<header>
-				<h2>New Endpoint</h2>
-				</br><p>Create new endpoint</p>
+				<h2>New User</h2>
+				</br><p>Create new user</p>
 			</header>
-			<form class="form-inline" action="{% url 'endpoints' %}" method="post">
+			<form class="form-inline" action="{% url 'users' %}" method="post">
 				{%csrf_token %}
 				<div class="form-group {% if form.name.errors %}has-warning has-feedback{% endif %}">
-					<label for="{{ form.name.id_for_label }}" class="control-label">Name</label>
-					{{ form.name }}
+					<label for="{{ form.account.id_for_label }}" class="control-label">Account</label>
+					{{ form.account }}
 				</div>
     			<div class="form-group">
-    				<label for="{{ form.kind.id_for_label }}" class="control-label">Type</label>
-    				 {{ form.kind }}
+    				<label for="{{ form.lastName.id_for_label }}" class="control-label">Last Name (optional)</label>
+    				 {{ form.lastName }}
+    			</div>
+				<div class="form-group">
+    				<label for="{{ form.firstName.id_for_label }}" class="control-label">First Name (optional)</label>
+    				 {{ form.firstName }}
     			</div>
 				<div class="form-group">
     				<label for="{{ form.status.id_for_label }}" class="control-label">Status</label>
@@ -34,17 +38,10 @@
     				 {{ form.comment }}
     			</div>
 				<div class="form-group">
-    				<label for="{{ form.area.id_for_label }}" class="control-label">Area (optional)</label>
-    				 {{ form.area}}
+    				<label for="{{ form.endpoint.id_for_label }}" class="control-label">Endpoint (optional)</label>
+    				 {{ form.endpoint}}
     			</div>
-				<!--
-				WAITING RELATION WITH ARTIFACTS
-				<div class="form-group">
-    				<label for="{{ form.artifact.id_for_label }}" class="control-label">IOC: </label>
-    				 {{ form.artifact }}
-    			</div>
-				-->
-				<div class="table_msg-pager"> Caution : Endpoint name must be unique. </div>
+				<div class="table_msg-pager"> Caution : Account name must be unique. </div>
   				<button type="submit" class="btn btn-success">{% if request.POST %} Modify {% else %} Create {% endif %}</button>
   			</form>
 	</article>

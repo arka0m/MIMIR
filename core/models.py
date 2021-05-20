@@ -119,7 +119,7 @@ class User(models.Model):
   function = models.CharField(max_length=32, null=True)
   criticality = models.CharField(max_length=1, choices=USER_CRITICALITY, default='M')
   comment = models.TextField(null=True)
-  endpoint = models.ForeignKey(Endpoint, on_delete=models.SET_NULL, null=True)
+  endpoint = models.ForeignKey(Endpoint, on_delete=models.SET(''), blank=True, null=True)
 
   def __str__(self):
     return self.name

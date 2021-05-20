@@ -141,7 +141,7 @@ def endpoints(request):
                 )
     # Make a list of all endpoints
     # TODO: Add filter features
-    endpoints_list = Endpoint.objects.all()
+    endpoints_list = Endpoint.objects.exclude(pk='')
     paginator = Paginator(endpoints_list, 10)
     page = request.GET.get('page')
     try:
@@ -160,9 +160,11 @@ def endpoints(request):
 def endpointDetails(request, endpointName):
     endpoint = Endpoint.objects.get(pk=endpointName)
     artifacts = Corrupted.objects.filter(endpoint_id=endpointName)
+    users = User.objects.filter(endpoint_id=endpointName)
     context = {
         'endpoint' : endpoint,
-        'artifacts' : artifacts
+        'artifacts' : artifacts,
+        'users' : users
         }
     return render(request, 'core/endpoints/endpointDetails.html', context)
 
@@ -381,20 +383,20 @@ def users(request):
             function = request.POST.get('function')
             criticality = request.POST.get('criticality')
             comment = request.POST.get('comment')
-            #endpoint = request.POST.get('endpoint')
-            user = User.objects.get(pk=actor)
+            endpoint = request.POST.get('endpoint')
+            endpoint = Endpoint.objects.get(pk=endpoint)
         
             user = User.objects.filter(pk=account)
             if not user.exists():
                 #If user doesn't exist, create a new one.
-                user = user.objects.create(
+                user = User.objects.create(
                     account = account,
                     lastName = lastName,
                     firstName = firstName,
                     status = status,
                     criticality = criticality,
                     comment = comment,
-                    #endpoint = endpoint
+                    endpoint = endpoint
                 )
                 user.save()
             else:
@@ -406,7 +408,7 @@ def users(request):
                     status = status,
                     criticality = criticality,
                     comment = comment,
-                    #endpoint = endpoint
+                    endpoint = endpoint
                 )
     # Make a list of all users
     # TODO: Add filter features
@@ -435,11 +437,8 @@ def userDetails(request, accountName):
     '''Manage display of user details'''
     user = get_object_or_404(User, pk=accountName)
     # Get user object from its name
-    endpoints = Corrupted.objects.filter(user_id=accountName)
-    # Get endpoints linked to a user
     context = {
         'user' : user,
-        'endpoints' : endpoints
         }
     return render(request, 'core/users/userDetails.html', context)
 
@@ -447,10 +446,10 @@ def userNew(request):
     '''Manage creation/modification of users'''
     if request.method == 'POST':
         # Modification of a user
-        form = userForm(request.POST)
+        form = UserForm(request.POST)
     else:
         # Creation of a user
-        form = userForm()
+        form = UserForm()
     context = {
         'form' : form
     }

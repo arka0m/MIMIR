@@ -98,6 +98,29 @@
 			{% endif %}
 		</div>
 	</section>
+		<section class="box text-style1">
+        <div class="inner">
+			{% if users %}
+			<h3 class="table_title">List of related Users</h3>
+			<table>
+			<thead>
+				<tr>
+					<th>Name : </th>
+					<!--<th>Type : </th>-->
+				</tr>
+			</thead>
+			{% for user in users %}
+				<tr class="table_line_clk" onclick="document.location.href='{% url 'userDetails' accountName=user.account %}'">
+					<td class="table_cell_main">{{ user.account }}</td>
+					<!--<td>{{ artifact.kind }}</td>-->
+				</tr>
+			{% endfor %}
+			</table>
+			{% else %}
+			<h3 class="table_title">No related Users</h3>
+			{% endif %}
+		</div>
+	</section>
 	</article>
 	
 {% endblock %}

@@ -59,14 +59,6 @@
 					<th>Comment : </th>
 					<td>{{ user.comment}}</td>
 				</tr>
-				{% if user.area.name != '' %}
-					<tr class="table_line_clk" onclick="document.location.href='{% url 'areaDetails' areaName=user.area %}'">
-				{% else %}
-					<tr>
-				{% endif %}
-					<th>Area : </th>
-					<td>{{ user.area }}</td>
-				</tr>
 				{% if user.endpoint.name != '' %}
 					<tr class="table_line_clk" onclick="document.location.href='{% url 'endpointDetails' endpointName=user.endpoint %}'">
 				{% else %}
@@ -75,6 +67,12 @@
 					<th>Endpoint : </th>
 					<td>{{ user.endpoint }}</td>
 				</tr>
+			</table>
+			<form class="form-inline" action="{% url 'users' %}" method="post">
+				{%csrf_token %}
+				<input type="hidden" class="hidden" value="{{ user.account }}" name="delete">
+				<button type="submit" class="btn_del">Delete</button>
+  			</form>
 		</div>
 		</section>
 	</article>
