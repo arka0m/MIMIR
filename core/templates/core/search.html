@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<!-- Post -->
+	<article class="box post post-excerpt">
+			<header>
+				<h2>Search result</h2>
+			</header>
+	</article>
+
+    <section class="box text-style1">
+	<div class="inner">
+		<table class="tab_list">
+			<thead>
+				<tr>
+					<th>Name of item : </th>
+					<th>Type of item : </th>
+				</tr>
+			</thead>
+            {% if artifact %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'artifactDetails' artifactName=artifact.name %}'">
+				<td class="table_cell_main">{{ artifact.name }}</td>
+				<td>artifact</td>
+			</tr>
+            {% endif %}
+			{% if endpoint %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'endpointDetails' endpointName=endpoint.name %}'">
+				<td class="table_cell_main">{{ endpoint.name }}</td>
+				<td>endpoint</td>
+			</tr>
+            {% endif %}
+            {% if actor %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'actorDetails' actorName=actor.name %}'">
+				<td class="table_cell_main">{{ actor.name }}</td>
+				<td>actor</td>
+			</tr>
+            {% endif %}
+            {% if area %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'areaDetails' areaName=area.name %}'">
+				<td class="table_cell_main">{{ area.name }}</td>
+				<td>area</td>
+			</tr>
+            {% endif %}
+            {% if userAccount %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'userDetails' accountName=userAccount.account %}'">
+				<td class="table_cell_main">{{ userAccount.account }}</td>
+				<td>user</td>
+			</tr>
+			{% endif %}
+		</table>
+    </div>
+	<div class="table_msg-pager">
+			<p>Click on a row in the table to access details of an item.<p>
+	</div>
+    </section>
+	
+{% endblock %}

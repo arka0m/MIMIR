@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^users/$', views.users, name='users'),
     url(r'^users/details/(?P<accountName>.+)/?$', views.userDetails, name='userDetails'),
     url(r'^users/create/$', views.userNew, name='userNew'),
-    url(r'^search/$', views.search),
+    url(r'^search/$', views.search,  name='search'),
 ]

@@ -32,7 +32,6 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li {% if request.path == '/' %}class="current" {% endif %}><a href="/">Index</a></li>
 							<li {% if '/artifacts/' in request.path %}class="current" {% endif %}><a href="{% url 'artifacts' %}">Artifacts</a></li>
 							<li {% if '/corrupted/' in request.path %}class="current" {% endif %}><a href="{% url 'compromise' %}">Compromise</a></li>
 							<li {% if '/actors/' in request.path %}class="current" {% endif %}><a href="{% url 'actors' %}">Threat Actors</a></li>
@@ -44,16 +43,22 @@
 							<li {% if '/endpoints/' in request.path %}class="current" {% endif %}><a href="{% url 'endpoints' %}">Endpoints</a></li>
 							<li {% if '/areas/' in request.path %}class="current" {% endif %}><a href="{% url 'areas' %}">Areas</a></li>							
 							<li {% if '/users/' in request.path %}class="current" {% endif %}><a href="{% url 'users' %}">Users</a></li>
-							<li {% if '/settings/' in request.path %}class="current" {% endif %}><a href="#">[DEV] Settings</a></li>
 						</ul>
 					</nav>
 
+					<nav id="nav">
+						<ul>
+							<li {% if '/settings/' in request.path %}class="current" {% endif %}><a href="#">[DEV] Settings</a></li>
+						</ul>
+					</nav>
+				
 				<!-- Search -->
-					<section class="box search">
-						<form method="post" action="#">
-							<input type="text" class="text" name="search" placeholder="Search" />
-						</form>
-					</section>
+				<section class="box search">
+					<form class="form-inline" action="{% url 'search' %}" method="post">
+					{%csrf_token %}
+						<input type="text" class="text" name="querySearch" placeholder="Search" />
+					</form>
+				</section>
 
 				<!-- Text
 					<section class="box text-style1">

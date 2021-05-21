@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from .models import Artifact, Endpoint, Corrupted, Actor, Area, User
@@ -457,20 +458,32 @@ def userNew(request):
     return render(request, 'core/users/userNew.html', context)
 
 def search(request):
-    query = request.GET['query']
+    query = request.POST.get('querySearch')
     if not query:
-        message = "Recherche vide !!"
+        return HttpResponse(status=404)
     else:
-        albums = [
-            album for album in ALBUMS
-            if query in " ".join(artist['name'] for artist in album['artists'])
-        ]
-        if len(albums) == 0:
-            message = "Aucun album trouvé ..."
+        context = {}
+        if Artifact.objects.filter(pk=query):
+            print("test0")
+            artifact = Artifact.objects.get(pk=query)
+            context['artifact'] = artifact
+        if Endpoint.objects.filter(pk=query):
+            print("test1")
+            endpoint = Endpoint.objects.get(pk=query)
+            context['endpoint'] = endpoint
+        if Actor.objects.filter(pk=query):
+            print("test2")
+            actor = Actor.objects.get(pk=query)
+            context['actor'] = actor
+        if Area.objects.filter(pk=query):
+            print("test3")
+            area = Area.objects.get(pk=query)
+            context['area'] = area
+        if User.objects.filter(pk=query):
+            print("test4")
+            userAccount = User.objects.get(pk=query)
+            context['userAccount'] = userAccount
+        if len(context) != 0:
+            return render(request, 'core/search.html', context)
         else:
-            albums = ["<li>{}</li>".format(album['name']) for album in albums]
-            message = """
-                Les albums correspondant sont :\n
-                <ul>{}</ul>""".format("\n".join(albums))
-    return HttpResponse(message)
-
+            return HttpResponse(status=404)
