@@ -1,13 +1,25 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 
 from .models import Artifact, Endpoint, Corrupted, Actor, Area, User
 from .forms import ArtifactForm, EndpointForm, CorruptedForm, ActorForm, AreaForm, UserForm
+from .utils import get_pieGraph
+
+map_endpoint_status = lambda val: dict(Endpoint.ENDPOINT_STATUS)[val]
 
 def index(request):
-    # Display index
-    return render(request, 'core/index.html')
+    # Display index page
+    # ADD get_data qs = my.objects.all()
+    qs = Endpoint.objects.exclude(status='NUL').values('status').order_by('status').annotate(dc=Count('status'))
+    labels = [map_endpoint_status(x['status']) for x in qs]
+    x_series = [y['dc'] for y in qs]
+    chart = get_pieGraph(labels, x_series)
+    context = {
+         'chart' : chart
+    }
+    return render(request, 'core/index.html', context)
 
 def artifacts(request):
     '''Manage display/creation/modification/deletion of artifact objects'''

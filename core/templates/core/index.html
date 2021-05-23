@@ -1,7 +1,6 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-	<!-- Post -->
 	<article class="box post post-excerpt">
 			<header>
 				<h2>Welcome to MÌMIR</h2>
@@ -11,6 +10,11 @@
 	<article class="box post post-excerpt">
 		<p>Few statistics and colorful dashboard (for chiefs !)</p>
 		<p>Maybe a list of lastest new objects</p>
+	</article>
+	<article class="box post post-excerpt">
+		{% if chart %}
+			<img src="data:image/png;base64, {{ chart|safe }}"/>
+		{% endif %}
 	</article>
 	<!--
 	<section class="box text-style1">
