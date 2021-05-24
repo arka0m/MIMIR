@@ -1,7 +1,7 @@
 from django.forms import ModelForm, TextInput, Select, Textarea, CharField, DateTimeField, DateTimeInput, ModelChoiceField, ModelMultipleChoiceField
 from datetime import datetime
 
-from .models import Artifact, Endpoint, Corrupted, Actor, Area, User
+from .models import Artifact, Endpoint, Compromise, Actor, Area, User
 
 class ArtifactForm(ModelForm):
     TTP = CharField(required=False)
@@ -34,13 +34,13 @@ class EndpointForm(ModelForm):
             'comment': Textarea(attrs={'class': 'form-control'})
         }
 
-class CorruptedForm(ModelForm):
+class CompromiseForm(ModelForm):
     dateBegin = DateTimeField(required=False)
     dateEnd = DateTimeField(required=False)
     artifact = ModelChoiceField(queryset=Artifact.objects.all())
     endpoint = ModelChoiceField(queryset=Endpoint.objects.all())
     class Meta:
-        model = Corrupted
+        model = Compromise
         fields = ['artifact', 'endpoint', 'dateBegin', 'dateEnd']
         widgets = {
             'dateBegin': DateTimeInput(),

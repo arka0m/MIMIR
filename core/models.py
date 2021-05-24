@@ -91,7 +91,7 @@ class Endpoint(models.Model):
   def __str__(self):
     return self.name
 
-class Corrupted(models.Model):
+class Compromise(models.Model):
   ''' Class to follow relation between Artifact and Endpoint '''
   # WARNING: Primary is currently an ID auto-incremented.
   dateDetection = models.DateTimeField(auto_now_add=True)

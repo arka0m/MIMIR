@@ -9,13 +9,13 @@
 					<!--<th>Actor:</th>-->
 				</tr>
 			</thead>
-			{% for corrupted in corrupts %}
-			<tr class="table_line_clk" onclick="document.location.href='{% url 'compromiseDetails' compromiseId=corrupted.id %}'">
-				<td>{{ corrupted.artifact }}</td>
-				<td>{{ corrupted.endpoint }}</td>
-				<td>{{ corrupted.dateDetection }}</td>
-				<!--<td>{{ corrupted.dateBegin }}</td>
-				<td>{{ corrupted.dateEnd }}</td>-->
+			{% for compromise in corrupts %}
+			<tr class="table_line_clk" onclick="document.location.href='{% url 'compromiseDetails' compromiseId=compromise.id %}'">
+				<td>{{ compromise.artifact }}</td>
+				<td>{{ compromise.endpoint }}</td>
+				<td>{{ compromise.dateDetection }}</td>
+				<!--<td>{{ compromise.dateBegin }}</td>
+				<td>{{ compromise.dateEnd }}</td>-->
 			</tr>
 			{% endfor %}
 		</table>

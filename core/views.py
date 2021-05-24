@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
 
-from .models import Artifact, Endpoint, Corrupted, Actor, Area, User
-from .forms import ArtifactForm, EndpointForm, CorruptedForm, ActorForm, AreaForm, UserForm
+from .models import Artifact, Endpoint, Compromise, Actor, Area, User
+from .forms import ArtifactForm, EndpointForm, CompromiseForm, ActorForm, AreaForm, UserForm
 from .utils import get_pieGraph
 
 map_endpoint_status = lambda val: dict(Endpoint.ENDPOINT_STATUS)[val]
@@ -89,7 +89,7 @@ def artifactDetails(request, artifactName):
     '''Manage display of artifact details'''
     artifact = get_object_or_404(Artifact, pk=artifactName)
     # Get artifact object from its name
-    endpoints = Corrupted.objects.filter(artifact_id=artifactName)
+    endpoints = Compromise.objects.filter(artifact_id=artifactName)
     # Get endpoints linked to an artifact
     context = {
         'artifact' : artifact,
@@ -172,7 +172,7 @@ def endpoints(request):
 
 def endpointDetails(request, endpointName):
     endpoint = Endpoint.objects.get(pk=endpointName)
-    artifacts = Corrupted.objects.filter(endpoint_id=endpointName)
+    artifacts = Compromise.objects.filter(endpoint_id=endpointName)
     users = User.objects.filter(endpoint_id=endpointName)
     context = {
         'endpoint' : endpoint,
@@ -192,12 +192,12 @@ def endpointNew(request):
     return render(request, 'core/endpoints/endpointNew.html', context)
 
 def compromise(request):
-    # IF method is POST, This is a new instance of Corrupted.
+    # IF method is POST, This is a new instance of Compromise.
     if request.method == 'POST':
         if request.POST.get('delete'):
-            corruptedId = request.POST.get('delete')
-            corrupted = Corrupted.objects.get(pk=corruptedId)
-            corrupted.delete()
+            compromiseId = request.POST.get('delete')
+            compromise = Compromise.objects.get(pk=compromiseId)
+            compromise.delete()
         else:
             artifact = request.POST.get('artifact')
             endpoint = request.POST.get('endpoint')
@@ -206,23 +206,23 @@ def compromise(request):
             #dateBegin = request.POST.get('dateBegin')
             #dateEnd = request.POST.get('dateEnd')
 
-            corrupted = Corrupted.objects.filter(pk=id)
-            if not corrupted.exists():
+            compromise = Compromise.objects.filter(pk=id)
+            if not compromise.exists():
                 #If compromise link doesn't exist, create a new one.
                 artifact = Artifact.objects.get(pk=artifact)
                 endpoint = Endpoint.objects.get(pk=endpoint)
-                corrupted = Corrupted.objects.create(
+                compromise = Compromise.objects.create(
                     artifact = artifact,
                     endpoint = endpoint,
                 )
-                corrupted.save()
+                compromise.save()
             # NOT YET IMPLEMENTED
             #else:
-            #    corrupted.update(artifact=artifact, endpoint=endpoint, dateDetection=dateDetection, dateBegin=dateBegin, dateEnd=dateEnd)
+            #    compromise.update(artifact=artifact, endpoint=endpoint, dateDetection=dateDetection, dateBegin=dateBegin, dateEnd=dateEnd)
     # Make a list of all corrupts
     # TODO: Add filter features
-    corrupted_list = Corrupted.objects.all()
-    paginator = Paginator(corrupted_list, 20)
+    compromise_list = Compromise.objects.all()
+    paginator = Paginator(compromise_list, 20)
     page = request.GET.get('page')
     try:
         corrupts = paginator.page(page)
@@ -238,17 +238,17 @@ def compromise(request):
     return render(request, 'core/compromise/compromiseBase.html', context)
 
 def compromiseDetails(request, compromiseId):
-    corrupted = Corrupted.objects.get(pk=compromiseId)
+    compromise = Compromise.objects.get(pk=compromiseId)
     context = {
-        'corrupted' : corrupted
+        'compromise' : compromise
         }
     return render(request, 'core/compromise/compromiseDetails.html', context)
 
 def compromiseNew(request):
     if request.method == 'POST':
-        form = CorruptedForm(request.POST)
+        form = CompromiseForm(request.POST)
     else:
-        form = CorruptedForm()
+        form = CompromiseForm()
     context = {
         'form' : form
     }
@@ -426,7 +426,7 @@ def users(request):
     # Make a list of all users
     # TODO: Add filter features
 
-    users_list = User.objects.all()
+    users_list = User.objects.exclude(pk='')
     # Get all the users
 
     paginator = Paginator(users_list, 20)
