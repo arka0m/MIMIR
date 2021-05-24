@@ -1,4 +1,9 @@
+<div align="center">
+<img src="./core/static/favicon.ico" alt="MIMIR_logo">
+</div>
+
 # MIMIR project - Massive Information Management for Incident Response
+
 
 Work in progress
 
