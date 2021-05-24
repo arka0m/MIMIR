@@ -1,0 +1,9 @@
+# .gitignore
+# Project files and directories
+/MIMIR/static/
+/core/migrations/
+
+# Bytes-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
