@@ -65,7 +65,7 @@ def artifacts(request):
     # Make a list of all endpoints
     # TODO: Add filter features
 
-    artifacts_list = Artifact.objects.all()
+    artifacts_list = Artifact.objects.all().order_by('status', 'name')
     # Get all the artifacts
 
     paginator = Paginator(artifacts_list, 20)
@@ -154,7 +154,7 @@ def endpoints(request):
                 )
     # Make a list of all endpoints
     # TODO: Add filter features
-    endpoints_list = Endpoint.objects.exclude(pk='')
+    endpoints_list = Endpoint.objects.exclude(pk='').order_by('status', 'criticality', 'name')
     paginator = Paginator(endpoints_list, 10)
     page = request.GET.get('page')
     try:
@@ -221,7 +221,7 @@ def compromise(request):
             #    compromise.update(artifact=artifact, endpoint=endpoint, dateDetection=dateDetection, dateBegin=dateBegin, dateEnd=dateEnd)
     # Make a list of all corrupts
     # TODO: Add filter features
-    compromise_list = Compromise.objects.all()
+    compromise_list = Compromise.objects.all().order_by('dateDetection')
     paginator = Paginator(compromise_list, 20)
     page = request.GET.get('page')
     try:
@@ -283,7 +283,7 @@ def actors(request):
                 actor.update(name=name, kind=kind, aim=aim, TTPs=TTPs, comment=comment)
     # Make a list of all actors
     # TODO: Add filter features
-    actors_list = Actor.objects.exclude(pk='')
+    actors_list = Actor.objects.exclude(pk='').order_by('name')
     paginator = Paginator(actors_list, 10)
     page = request.GET.get('page')
     try:
@@ -343,7 +343,7 @@ def areas(request):
                 area.update(name=name, criticality=criticality, comment=comment)
     # Make a list of all actors
     # TODO: Add filter features
-    areas_list = Area.objects.exclude(pk='')
+    areas_list = Area.objects.exclude(pk='').order_by('criticality', 'name')
     paginator = Paginator(areas_list, 10)
     page = request.GET.get('page')
     try:
@@ -426,7 +426,7 @@ def users(request):
     # Make a list of all users
     # TODO: Add filter features
 
-    users_list = User.objects.exclude(pk='')
+    users_list = User.objects.exclude(pk='').order_by('status', 'criticality', 'account')
     # Get all the users
 
     paginator = Paginator(users_list, 20)
