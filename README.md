@@ -7,6 +7,61 @@
 
 Work in progress
 
+## 1. How to install ?
+
+### 1.1 Requirements
+
+All tests were performed in a Linux environment, but the project is based on Docker containers, so it is portable.
+
+* docker
+* docker compose
+* User must be docker group member. (restart needed)
+
+### 1.2 Installation
+
+#### 1.2.a Internet connected environment
+
+```
+git clone https://github.com/arka0m/MIMIR
+cd MIMIR
+docker-compose build
+docker-compose up
+docker exec -it MIMIR_web /bin/bash
+* ./manage.py makemigrations
+* ./manage.py migrate
+* exit
+docker-compose down
+```
+
+Please note: This is strongly recommended that you modify the SECRET KEY in Django project before using it in production.
+
+#### 1.2.b Air-grapped network
+
+* Download bundle_MIMIR-containers_v*X*.*X*.tar.gz
+
+```
+docker load -i bundle_MIMIR-containers_vX.X.tar.gz
+git clone https://github.com/arka0m/MIMIR
+```
+
+## 2. How to run and use ?
+
+### 2.1 Get started
+
+* To launch MÌMIR :
+```
+cd MIMIR
+docker-compose up
+```
+
+* To stop MÌMIR : 
+```
+Ctrl+C
+```
+
+Please note that the Postgres database is not persistent. **Docker-compose down will result in the loss of all data in the database.**
+
+
 ## 1. How to participate ?
 
 ### 1.1 Commit at the end of each feature modification
