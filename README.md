@@ -37,11 +37,18 @@ Please note: This is strongly recommended that you modify the SECRET KEY in Djan
 
 #### 1.2.b Air-grapped network
 
-* Download bundle_MIMIR-containers_v*X*.*X*.tar.gz
+* Download bundle_MIMIR.tar.gz -> **bundle not published yet, but available on demand.**
 
 ```
-docker load -i bundle_MIMIR-containers_vX.X.tar.gz
-git clone https://github.com/arka0m/MIMIR
+tar -xzvf bundle_MIMIR.tar.gz
+docker load -i MIMIR-containers.tar.gz
+cd MIMIR
+docker-compose up
+docker exec -it MIMIR_web /bin/bash
+* ./manage.py makemigrations
+* ./manage.py migrate
+* exit
+docker-compose down
 ```
 
 ## 2. How to run and use ?
