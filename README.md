@@ -37,7 +37,8 @@ Please note: This is strongly recommended that you modify the SECRET KEY in Djan
 
 #### 1.2.b Air-grapped network
 
-* Download bundle_MIMIR.tar.gz -> **bundle not published yet, but available on demand.**
+* Create a bundle or download bundle_MIMIR.tar.gz -> **bundle not published yet, but available on demand.**
+  * To create a bundle : Follow "Internet connected environment" instruction, then use docker save to build a bundle.
 
 ```
 tar -xzvf bundle_MIMIR.tar.gz
