@@ -93,6 +93,95 @@
 		appearance: none;
 	}
 
+/* PERSONAL ADD */
+
+@font-face {
+	font-family: 'Source Sans pro';
+	src: local('Source Sans pro'),
+		url('../fonts/SourceSansPro-Regular.ttf') format("truetype");
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Source Sans pro';
+	src: local('Source Sans pro'),
+		url('../fonts/SourceSansPro-Italic.ttf') format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Source Sans pro';
+	src: local('Source Sans pro'),
+		url('../fonts/SourceSansPro-Bold.ttf') format("truetype");
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Open Sans Condensed';
+	src: local('Open Sans Condensed'),
+		url('../fonts/OpenSansCondensed-Light.ttf') format("truetype");
+		font-weight: 300;
+}
+@font-face {
+	font-family: 'Open Sans Condensed';
+	src: local('Open Sans Condensed'),
+		url('../fonts/OpenSansCondensed-Bold.ttf') format("truetype");
+		font-weight: 700;
+}
+
+
+	/* Line on table */
+	.table_line_clk {
+		cursor: pointer;
+	}
+
+	.table_line_clk:hover {
+		background-color: #364050;
+		color: #fff;
+	}
+
+	/* Main cell in line on table */
+	.table_cell_main {
+		font-weight: bold;
+	}
+
+	/* Message and button for table pagination */
+	.table_msg-pager {
+		text-align: center;
+		font-style: italic;
+	}
+
+	/* Button to delete element */
+	.btn_del {
+		background-color: #740505c4;
+		color: #fff;
+	}
+
+	.btn {
+		display: flex;
+		flex-direction: row;
+	}
+
+	/* table */
+	.tab_list {
+		border: 1px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.table_title {
+		text-align: center;
+		font-size: larger;
+	}
+
+	.main_cell {
+		font-size: larger;
+		font-weight: bolder;
+	}
+
+	.cell_msg {
+		text-align: center;
+		font-size: larger;
+		font-weight: bolder;
+	}
+
 /* Basic */
 
 	// Set box model to border-box.
@@ -127,7 +216,8 @@
 	}
 
 	a {
-		color: #c94663;
+		//color: #c94663;
+		color: #fff
 	}
 
 	strong, b {
@@ -357,7 +447,8 @@
 	button,
 	.button {
 		cursor: pointer;
-		background-color: #c94663;
+		//background-color: #c94663;
+		background-color: #364050;
 		background-image: url('images/bg01.png');
 		border-radius: 0.4em;
 		text-align: center;
@@ -375,11 +466,13 @@
 		}
 
 		&:hover {
-			background-color: #d95673;
+			//background-color: #d95673;
+			background-color: #364050d3;
 		}
 
 		&:active {
-			background-color: #b93653;
+			//background-color: #b93653;
+			background-color: #3640503d;
 		}
 
 		&.alt {
