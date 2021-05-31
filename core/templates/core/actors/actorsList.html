@@ -1,6 +1,6 @@
 <section class="box text-style1">
 	<div class="inner">
-		<table class="tab_list" data-sortable>
+		<table id="table_id" class="tab_list">
 			<!-- TODO : ADD sum(IOC linked to actor)-->
 			<thead>
 				<tr>
@@ -8,12 +8,14 @@
 					<th>Type : </th>
 				</tr>
 			</thead>
+			<tbody>
 			{% for actor in actors %}
 				<tr class="table_line_clk" onclick="document.location.href='{% url 'actorDetails' actorName=actor.name %}'">
 					<td class="table_cell_main">{{ actor.name }}</td>
 					<td>{{ actor.get_kind_display }}</td>
 				</tr>
 			{% endfor %}
+			</tbody>
 		</table>
 		<div class="table_msg-pager">
 			<p>Click on a row in the table to access details of an item.<p>

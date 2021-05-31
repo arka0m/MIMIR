@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
 
 from .models import Artifact, Endpoint, Compromise, Actor, Area, User
@@ -62,24 +61,10 @@ def artifacts(request):
                     comment = comment,
                     actor = actor
                 )
-    # Make a list of all endpoints
-    # TODO: Add filter features
+    # Display a list of all endpoints
 
-    artifacts_list = Artifact.objects.all().order_by('status', 'name')
+    artifacts = Artifact.objects.all()
     # Get all the artifacts
-
-    paginator = Paginator(artifacts_list, 20)
-    # Manage pagination and display them per page.
-    page = request.GET.get('page')
-    try:
-        artifacts = paginator.page(page)
-    except PageNotAnInteger:
-        #If page is not an integer, deliver first page.
-        artifacts = paginator.page(1)
-    except EmptyPage:
-        #If page is out of range, deliver last page.
-        artifacts = paginator.page(paginator.num_pages)
-    # Send to artifacts.html with the rights elements.
     context = {
         'artifacts' : artifacts
         }
@@ -153,18 +138,7 @@ def endpoints(request):
                     area = area
                 )
     # Make a list of all endpoints
-    # TODO: Add filter features
-    endpoints_list = Endpoint.objects.exclude(pk='').order_by('status', 'criticality', 'name')
-    paginator = Paginator(endpoints_list, 10)
-    page = request.GET.get('page')
-    try:
-        endpoints = paginator.page(page)
-    except PageNotAnInteger:
-        #If page is not an integer, deliver first page.
-        endpoints = paginator.page(1)
-    except EmptyPage:
-        #If page is out of range, deliver last page.
-        endpoints = paginator.page(paginator.num_pages)
+    endpoints = Endpoint.objects.exclude(pk='')
     context = {
         'endpoints' : endpoints
         }
@@ -220,20 +194,10 @@ def compromise(request):
             #else:
             #    compromise.update(artifact=artifact, endpoint=endpoint, dateDetection=dateDetection, dateBegin=dateBegin, dateEnd=dateEnd)
     # Make a list of all corrupts
-    # TODO: Add filter features
-    compromise_list = Compromise.objects.all().order_by('dateDetection')
-    paginator = Paginator(compromise_list, 20)
-    page = request.GET.get('page')
-    try:
-        corrupts = paginator.page(page)
-    except PageNotAnInteger:
-        #If page is not an integer, deliver first page.
-        corrupts = paginator.page(1)
-    except EmptyPage:
-        #If page is out of range, deliver last page.
-        corrupts = paginator.page(paginator.num_pages)
+
+    compromises = Compromise.objects.all()
     context = {
-        'corrupts' : corrupts
+        'compromises' : compromises
         }
     return render(request, 'core/compromise/compromiseBase.html', context)
 
@@ -282,18 +246,7 @@ def actors(request):
                 #If it exists, modify the attributs.
                 actor.update(name=name, kind=kind, aim=aim, TTPs=TTPs, comment=comment)
     # Make a list of all actors
-    # TODO: Add filter features
-    actors_list = Actor.objects.exclude(pk='').order_by('name')
-    paginator = Paginator(actors_list, 10)
-    page = request.GET.get('page')
-    try:
-        actors = paginator.page(page)
-    except PageNotAnInteger:
-        #If page is not an integer, deliver first page.
-        actors = paginator.page(1)
-    except EmptyPage:
-        #If page is out of range, deliver last page.
-        actors = paginator.page(paginator.num_pages)
+    actors = Actor.objects.exclude(pk='')
     context = {
         'actors' : actors
         }
@@ -342,18 +295,7 @@ def areas(request):
                 #If it exists, modify the attributs.
                 area.update(name=name, criticality=criticality, comment=comment)
     # Make a list of all actors
-    # TODO: Add filter features
-    areas_list = Area.objects.exclude(pk='').order_by('criticality', 'name')
-    paginator = Paginator(areas_list, 10)
-    page = request.GET.get('page')
-    try:
-        areas = paginator.page(page)
-    except PageNotAnInteger:
-        #If page is not an integer, deliver first page.
-        areas = paginator.page(1)
-    except EmptyPage:
-        #If page is out of range, deliver last page.
-        areas = paginator.page(paginator.num_pages)
+    areas = Area.objects.exclude(pk='')
     context = {
         'areas' : areas
         }
@@ -424,23 +366,10 @@ def users(request):
                     endpoint = endpoint
                 )
     # Make a list of all users
-    # TODO: Add filter features
 
-    users_list = User.objects.exclude(pk='').order_by('status', 'criticality', 'account')
+    users = User.objects.exclude(pk='')
     # Get all the users
 
-    paginator = Paginator(users_list, 20)
-    # Manage pagination and display them per page.
-    page = request.GET.get('page')
-    try:
-        users = paginator.page(page)
-    except PageNotAnInteger:
-        #If page is not an integer, deliver first page.
-        users = paginator.page(1)
-    except EmptyPage:
-        #If page is out of range, deliver last page.
-        users = paginator.page(paginator.num_pages)
-    # Send to users.html with the rights elements.
     context = {
         'users' : users
         }
@@ -476,23 +405,18 @@ def search(request):
     else:
         context = {}
         if Artifact.objects.filter(pk=query):
-            print("test0")
             artifact = Artifact.objects.get(pk=query)
             context['artifact'] = artifact
         if Endpoint.objects.filter(pk=query):
-            print("test1")
             endpoint = Endpoint.objects.get(pk=query)
             context['endpoint'] = endpoint
         if Actor.objects.filter(pk=query):
-            print("test2")
             actor = Actor.objects.get(pk=query)
             context['actor'] = actor
         if Area.objects.filter(pk=query):
-            print("test3")
             area = Area.objects.get(pk=query)
             context['area'] = area
         if User.objects.filter(pk=query):
-            print("test4")
             userAccount = User.objects.get(pk=query)
             context['userAccount'] = userAccount
         if len(context) != 0:

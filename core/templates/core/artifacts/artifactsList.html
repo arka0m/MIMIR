@@ -1,6 +1,6 @@
 <section class="box text-style1">
 	<div class="inner">
-		<table class="tab_list" data-sortable>
+		<table id="table_id" class="tab_list">
 			<thead>
 				<tr>
 					<th>Name : </th>
@@ -9,6 +9,7 @@
 					<th>Actor : </th>
 				</tr>
 			</thead>
+			<tbody>
 			{% for artifact in artifacts %}
 			<tr class="table_line_clk" onclick="document.location.href='{% url 'artifactDetails' artifactName=artifact.name %}'">
 				<td class="table_cell_main">{{ artifact.name }}</td>
@@ -17,6 +18,7 @@
 				<td>{{ artifact.actor }}</td>
 			</tr>
 			{% endfor %}
+			</tbody>
 		</table>
 		<div class="table_msg-pager">
 			<p>Click on a row in the table to access details of an item.<p>

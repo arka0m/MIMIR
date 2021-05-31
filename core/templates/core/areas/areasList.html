@@ -1,18 +1,20 @@
 <section class="box text-style1">
 	<div class="inner">
-		<table class="tab_list" data-sortable>
+		<table id="table_id" class="tab_list">
 			<thead>
 				<tr>
 					<th>Name : </th>
 					<th>Criticality : </th>
 				</tr>
 			</thead>
+			<tbody>
 			{% for area in areas %}
 			<tr class="table_line_clk" onclick="document.location.href='{% url 'areaDetails' areaName=area.name %}'">
 				<td class="table_cell_main">{{ area.name }}</td>
 				<td>{{ area.get_criticality_display}}</td>
 			</tr>
 			{% endfor %}
+			</tbody>
 		</table>
 		<div class="table_msg-pager">
 			<p>Click on a row in the table to access details of an item.<p>

@@ -1,6 +1,6 @@
 <section class="box text-style1">
 	<div class="inner">
-		<table class="tab_list" data-sortable>
+		<table id="table_id" class="tab_list">
 			<thead>
 				<tr>
 					<th>artifact : </th>
@@ -9,7 +9,8 @@
 					<!--<th>Actor:</th>-->
 				</tr>
 			</thead>
-			{% for compromise in corrupts %}
+			<tbody>
+			{% for compromise in compromises %}
 			<tr class="table_line_clk" onclick="document.location.href='{% url 'compromiseDetails' compromiseId=compromise.id %}'">
 				<td>{{ compromise.artifact }}</td>
 				<td>{{ compromise.endpoint }}</td>
@@ -18,6 +19,7 @@
 				<td>{{ compromise.dateEnd }}</td>-->
 			</tr>
 			{% endfor %}
+			</tbody>
 		</table>
 		<div class="table_msg-pager">
 			<p>Click on a row in the table to access details of an item.<p>

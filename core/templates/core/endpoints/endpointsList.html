@@ -1,6 +1,7 @@
 <section class="box text-style1">
 	<div class="inner">
-		<table class="tab_list" data-sortable>
+
+		<table id="table_id" class="tab_list">
 			<thead>
 				<tr>
 					<th>Name : </th>
@@ -10,6 +11,7 @@
 					<th>Area : </th>
 				</tr>
 			</thead>
+			<tbody>
 			{% for endpoint in endpoints %}
 			<tr class="table_line_clk" onclick="document.location.href='{% url 'endpointDetails' endpointName=endpoint.name %}'">
 				<td class="table_cell_main">{{ endpoint.name }}</td>
@@ -19,6 +21,7 @@
 				<td>{{ endpoint.area }}</td>
 			</tr>
 			{% endfor %}
+			</tbody>
 		</table>
 		<div class="table_msg-pager">
 			<p>Click on a row in the table to access details of an item.<p>
