@@ -93,7 +93,7 @@ body
 2. **Subject** : Short description of the changes made 
 3. **body** : It is used to explain changes (optional)
 
-## 2. License
+## 4. License
 
 **Author : ArkaØm**<br/>
 *Contact: arka0m@protonmail.com*
