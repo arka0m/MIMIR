@@ -70,13 +70,13 @@ Ctrl+C
 Please note that the Postgres database is not persistent. **Docker-compose down will result in the loss of all data in the database.**
 
 
-## 1. How to participate ?
+## 3. How to participate ?
 
-### 1.1 Commit at the end of each feature modification
+### 3.1 Commit at the end of each feature modification
 
 In order to easily track each change, please commit/push after EACH feature-specific change block. (Whit a specific comment of course)
 
-### 1.2 Commit message must respect the following format:
+### 3.2 Commit message must respect the following format:
 
 ```
 type : subject
