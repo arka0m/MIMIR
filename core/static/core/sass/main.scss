@@ -4,8 +4,8 @@
 @import 'libs/vendor';
 @import 'libs/breakpoints';
 @import 'libs/html-grid';
-@import url("fontawesome-all.min.css");
-/*@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700|Open+Sans+Condensed:300,700");*/
+@import url("../css/fontawesome-all.min.css");
+@import url("../css/dataTables.css");
 
 /*
 	Striped by HTML5 UP
@@ -196,7 +196,7 @@
 
 	body {
 		background-color: #e8e8e8;
-		background-image: url('images/bg02.png');
+		background-image: url('../css/images/bg02.png');
 		@include vendor('display', 'flex');
 
 		// Stops initial animations until page loads.
@@ -217,7 +217,8 @@
 
 	a {
 		//color: #c94663;
-		color: #fff
+		color: #fff;
+		text-decoration: none;
 	}
 
 	strong, b {
@@ -308,7 +309,7 @@
 		tbody {
 			tr {
 				&:nth-child(2n+2) {
-					background: #f4f4f4;
+					background: #f4f4f4 url("../css/images/bg02.png");
 				}
 			}
 		}
@@ -324,7 +325,14 @@
 		}
 
 		thead {
-			border-bottom: solid 1px #ddd;
+			/*border-bottom: solid 1px #ddd;*/
+			/**ADD**/
+			border-top: solid 2px #ddd;
+			border-bottom: solid 2px #ddd;
+			text-transform: uppercase;
+			color: rgba(255, 255, 255, 0.8);
+			box-shadow: inset 0px 0px 400px 110px #465060;
+			border-radius: 10px;
 		}
 
 		tfoot {
@@ -387,7 +395,8 @@
 			font-family: 'Open Sans Condensed', sans-serif;
 			font-weight: 300;
 			display: block;
-			margin-top: 1em;
+			//margin-top: 1em;
+			margin-top: 0.2em;
 			color: #999;
 		}
 	}
@@ -449,12 +458,13 @@
 		cursor: pointer;
 		//background-color: #c94663;
 		background-color: #364050;
-		background-image: url('images/bg01.png');
+		background-image: url('../css/images/bg01.png');
 		border-radius: 0.4em;
 		text-align: center;
 		box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.15);
 		color: #fff;
-		font-family: 'Open Sans Condensed', sans-serif;
+		//font-family: 'Open Sans Condensed', sans-serif;
+		font-family: 'Source Sans Pro', sans-serif;
 		font-weight: 700;
 		text-decoration: none;
 		@include vendor('transition', ('background-color .25s ease-in-out', 'color .25s ease-in-out'));
@@ -530,7 +540,7 @@
 				text-decoration: none;
 				color: inherit;
 				background-color: #e8e8e8;
-				background-image: url('images/bg02.png');
+				background-image: url('../css/images/bg02.png');
 				color: #565656;
 				margin: 0 0.4em 0 0;
 				border-radius: 0.4em;
@@ -625,7 +635,7 @@
 				&.today {
 					a {
 						background-color: #c94663;
-						background-image: url('images/bg01.png');
+						background-image: url('../css/images/bg01.png');
 						box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.15), 0 0.025em 0.15em 0em rgba(0, 0, 0, 0.25);
 						color: #fff !important;
 					}
@@ -835,7 +845,7 @@
 		top: 0;
 		width: 100%;
 		z-index: _misc(z-index-base) + 1;
-		background: #364050 url('images/bg01.png');
+		background: #364050 url('../css/images/bg01.png');
 
 		.title {
 			display: block;
@@ -873,7 +883,7 @@
 				width: 50px;
 				height: 30px;
 				line-height: 30px;
-				background: #565656 url('images/bg01.png');
+				background: #565656 url('../css/images/bg01.png');
 				border-radius: 5px;
 				color: #fff;
 				text-align: center;
@@ -895,7 +905,7 @@
 		text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
 		width: _size(sidebar);
 		padding: 3em 1.35em 1em 1.15em;
-		background: #364050 url('images/bg01.png');
+		background: #364050 url('../css/images/bg01.png');
 		overflow-y: auto;
 		left: 0;
 		box-shadow: inset -0.1em 0em 0.35em 0em rgba(0, 0, 0, 0.15);
@@ -948,7 +958,7 @@
 	#content {
 		position: relative;
 		background-color: #fff;
-		background-image: url('images/bg02.png');
+		background-image: url('../css/images/bg02.png');
 		width: 100%;
 		@include vendor('flex-grow', '1');
 		@include vendor('flex-shrink', '1');
@@ -1106,8 +1116,9 @@
 
 				a {
 					display: block;
-					background-color: #c94663;
-					background-image: url('images/bg01.png');
+					//background-color: #c94663;
+					background-color: #252223;
+					background-image: url('../css/images/bg01.png');
 					padding: 0.875em 0.25em;
 					border-radius: 0.2em;
 					text-align: center;
@@ -1167,7 +1178,7 @@
 				font-size: 12pt;
 			}
 
-		/* Box */
+		/* Box =ICI= changement de la page principale */
 
 			.box {
 				&.post {
@@ -1177,7 +1188,8 @@
 					}
 
 					header {
-						padding: 2.75em 0 0 0;
+						//padding: 2.75em 0 0 0;
+						padding: 0m 0 0 0;
 						margin: 0 0 3em 0;
 
 						> p {
@@ -1194,7 +1206,7 @@
 						width: 5.5em;
 						overflow: hidden;
 						background-color: #fff;
-						background-image: url('images/bg02.png');
+						background-image: url('../css/images/bg02.png');
 						left: -10.5em;
 						top: 0;
 						padding: 1.5em 1em 1.5em 1em;

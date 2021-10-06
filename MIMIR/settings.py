@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     #'whitenoise.runserver_nostatic',
+    'sass_processor',
     'django.contrib.staticfiles',
     'debug_toolbar',
 ]
@@ -131,7 +132,17 @@ STATIC_URL = '/static/'
 
 INTERNAL_IPS = ['127.0.0.1']
 
-# # Static files settings
+# Static files settings
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+STATIC_ROOT = BASE_DIR / 'static'
+SASS_PROCESSOR_ROOT = STATIC_ROOT
+
 # PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')

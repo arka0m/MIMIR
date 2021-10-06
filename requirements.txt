@@ -3,3 +3,6 @@ psycopg2-binary>=2.8
 django-debug-toolbar
 whitenoise
 matplotlib
+libsass
+django-compressor
+django-sass-processor

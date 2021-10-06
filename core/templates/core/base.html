@@ -13,8 +13,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		{% load static %}
-		<link rel="stylesheet" type="text/css" href="{% static 'core/css/dataTables.css' %}" />
-		<link rel="stylesheet" type="text/css" href="{% static 'core/css/main.css' %}" />
+		{% load sass_tags %}
+		<link rel="stylesheet" type="text/css" href="{% sass_src 'core/sass/main.scss' %}" />
 		<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
 	</head>
 	<body class="is-preload">
